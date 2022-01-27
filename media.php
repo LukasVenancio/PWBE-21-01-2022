@@ -1,18 +1,30 @@
 <?php
-
-    $nota1 = (double) 0;
-    $nota2 = (double) 0;
-    $nota3 = (double) 0;
-    $nota4 = (double) 0;
-    $media = (double) 0;  
+$nota1 = (double) 0;
+$nota2 = (double) 0;
+$nota3 = (double) 0;
+$nota4 = (double) 0;
+$media = (double) 0;  
 
 if(isset($_POST['btncalc'])){    
+   
     $nota1 = $_POST['txtn1'];
     $nota2 = $_POST['txtn2'];
     $nota3 = $_POST['txtn3'];
     $nota4 = $_POST['txtn4'];
 
-    $media = ($nota1 + $nota2 + $nota3 + $nota4) / 4;
+    if($_POST['txtn1'] == "" || $_POST['txtn2'] == "" || $_POST['txtn3'] == "" || $_POST['txtn4'] == "")
+    {
+        echo('<p class="msgErro">É obrigatório que todos os campos estejam preenchidos para realizar o calculo!</p>');
+    }else
+    {
+        if(!is_numeric($nota1) || !is_numeric($nota2) || !is_numeric($nota3) || !is_numeric($nota4))
+        {
+            echo('<p class="msgErro">Digite apenas números!</p>');
+        }else
+        {
+            $media = ($nota1 + $nota2 + $nota3 + $nota4) / 4;
+        }   
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -33,22 +45,22 @@ if(isset($_POST['btncalc'])){
                 <form name="frmMedia" method="post" action="media.php">
                     <div>
                         <label>Nota 1:</label>
-                        <input type="text" name="txtn1" value=""  > 
+                        <input type="text" name="txtn1" value="<?php echo($nota1)?>"  > 
                     </div>
                     
                     <div>
                         <label>Nota 2:</label>
-                        <input type="text" name="txtn2" value="" > 
+                        <input type="text" name="txtn2" value="<?php echo($nota2)?>" > 
                     </div>
                     
                     <div>
                         <label>Nota 3:</label>
-                        <input type="text" name="txtn3" value="" > 
+                        <input type="text" name="txtn3" value="<?php echo($nota3)?>" > 
                     </div>
                     
                     <div>
                         <label>Nota 4:</label>
-                        <input type="text" name="txtn4" value="" >
+                        <input type="text" name="txtn4" value="<?php echo($nota4)?>" >
                     </div>
                     <div>
                         <input type="submit" name="btncalc" value ="Calcular" >
